@@ -2,45 +2,38 @@
 #include "sort.h"
 #include <stdlib.h>
 
-void compare(listint_t *node1, listint_t *node2)
-{
-	if (node1->n > node2-n)
-	{
-		swap(node1, node2);
-
-	}
-	else
-	{
-		node1 = node2;
-		node2 = node->next;
-	}
-	
-}
-
-void check_nodes(listint_t *node1, listint_t *node2)
-{
-
-	if (node1->prev)
-	{
-		node2 = node1
-		node1 = node1->prev;
-	}
-	else
-	{
-		node1 = node2;
-		node2 = node->next
-	}
-
-}
 void insertion_sort_list(listint_t **list)
 {
-
-	if (!list or !*list)
+	if (!(*list) || !(*list)->next)
 		return;
 
-	node1 = *list;
-	node2 = current->next;
-	
+	listint_t *sorted = NULL;
+	listint_t *current = *list;
+	listint_t *nextNode = NULL;
+	listint_t *temp = NULL;
 
-	
+	while (current)
+	{
+		nextNode = current->next;
+		if (!sorted || current->n < sorted->n)
+		{
+			current->next = sorted;
+			if (sorted)
+				sorted->prev = current;
+			sorted = current
+		}
+		else
+		{
+			temp = sorted;
+			while (temp->next && temp->next->n < current->n)
+				temp = temp->next;
+			current->next = temp->next;
+			if (temp->next)
+				temp->next->prev = current;
+			temp->next = 	
+		}
+		current = nextNode
+	}
+	*list = sorted
+
 }
