@@ -2,38 +2,38 @@
 #include "sort.h"
 #include <stdlib.h>
 
+/**
+ * insertion_sort_list - sorts a doubly linked lis using insertion sort
+ *
+ * @list: The list to be sorted
+ */
 void insertion_sort_list(listint_t **list)
 {
-	if (!(*list) || !(*list)->next)
-		return;
-
-	listint_t *sorted = NULL;
 	listint_t *current = *list;
 	listint_t *nextNode = NULL;
-	listint_t *temp = NULL;
+
+	if (!(*list) || !(*list)->next)
+		return;
 
 	while (current)
 	{
 		nextNode = current->next;
-		if (!sorted || current->n < sorted->n)
-		{
-			current->next = sorted;
-			if (sorted)
-				sorted->prev = current;
-			sorted = current
-		}
-		else
-		{
-			temp = sorted;
-			while (temp->next && temp->next->n < current->n)
-				temp = temp->next;
-			current->next = temp->next;
-			if (temp->next)
-				temp->next->prev = current;
-			temp->next = 	
-		}
-		current = nextNode
-	}
-	*list = sorted
 
+		while (current->prev && current->n < current->prev->n)
+		{
+			if (current->next)
+				current->next->prev = current->prev;
+			current->prev->next = current->next;
+			current->next = current->prev;
+			current->prev = current->prev->prev;
+			current->next->prev = current;
+
+			if (current->prev)
+				current->prev->next = current;
+			else
+				*list = current;
+			print_list(*list);
+		}
+		current = nextNode;
+	}
 }
