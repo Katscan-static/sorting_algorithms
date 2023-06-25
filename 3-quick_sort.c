@@ -3,10 +3,8 @@
 
 /**
  * swap - swap two numbers
- *
  * @a: first number
  * @b: second number
- *
  */
 void swap(int *a, int *b)
 {
@@ -40,6 +38,8 @@ int partition(int *array, int low, int high, size_t size)
 			}
 		}
 	}
+	/*inserts the pivot element into its correct position after*/
+	/*traversing the loop(ie moving all the elements <= pivot to the left)*/
 	if ((i + 1) != high)
 	{
 		swap(&array[i + 1], &array[high]);
@@ -51,12 +51,10 @@ int partition(int *array, int low, int high, size_t size)
 
 /**
  * quicksort - sort using recursive partition
- *
  * @array: array
  * @low: lowest position of array
  * @high: highest position of array
  * @size: size of array
- *
  */
 void quicksort(int *array, int low, int high, size_t size)
 {
