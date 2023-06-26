@@ -6,6 +6,9 @@
  * insertion_sort_list - sorts a doubly linked lis using insertion sort
  *
  * @list: The list to be sorted
+ * Description: Insertion sort algorithm divides the array into sub arrays
+ * sorted and unsorted Takes an element from the unsorted and find the proper
+ * postion for it in the sorted array
  */
 void insertion_sort_list(listint_t **list)
 {
