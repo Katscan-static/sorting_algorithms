@@ -10,19 +10,15 @@
  */
 void merge(int *array, int lb, int mid, int ub, int *merged)
 {
-	int i = lb, j = mid + 1, k = lb, x;
+	int i = lb, j = mid, k = 0;
 
 	printf("Merging...\n[left]: ");
-	for (x = lb; x <= mid; x++)
-		printf("%d ", array[x]);
-	printf("\n");
+	print_array(array + lb, mid - lb);
 	printf("[right]: ");
-	for (x = j; x <= ub; x++)
-		printf("%d ", array[x]);
-	printf("\n");
-	while (i <= mid && j <= ub)
+	print_array(array + mid, ub - mid);
+	while (i < mid && j < ub)
 	{
-		if (array[i] <= array[j])
+		if (array[i] < array[j])
 		{
 			merged[k] = array[i];
 			i++;
@@ -34,22 +30,20 @@ void merge(int *array, int lb, int mid, int ub, int *merged)
 		}
 		k++;
 	}
-	while (i <= mid)
+	while (i < mid)
 	{
 		merged[k] = array[i];
 		i++, k++;
 	}
-	while (j <= ub)
+	while (j < ub)
 	{
 		merged[k] = array[j];
 		j++, k++;
 	}
+	for (i = lb, k = 0; i < ub; i++)
+		array[i] = merged[k++];
 	printf("[Done]: ");
-	for (x = lb; x <= ub; x++)
-		printf("%d ", merged[x]);
-	printf("\n");
-	for (k = lb; k <= ub; k++)
-		array[k] = merged[k];
+	print_array(array + lb, ub - lb);
 }
 
 /**
@@ -64,14 +58,13 @@ void mergesort(int *array, int lb, int ub, int *merged)
 	int mid;
 
 	mid = (lb + ub) / 2;
-	if (lb < ub)
+	if (ub - lb > 1)
 	{
 		mergesort(array, lb, mid, merged);
-		mergesort(array, mid + 1, ub, merged);
+		mergesort(array, mid, ub, merged);
 		merge(array, lb, mid, ub, merged);
 	}
 }
-
 
 /**
  * merge_sort - Merge sort algorithm
@@ -86,8 +79,10 @@ void merge_sort(int *array, size_t size)
 		return;
 
 	merged = malloc(sizeof(int) * size);
+	if (!merged)
+		return;
 
-	mergesort(array, 0, size - 1, merged);
+	mergesort(array, 0, size, merged);
 
 	free(merged);
 }
