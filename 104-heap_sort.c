@@ -17,12 +17,13 @@ void swap(int *first, int *sec)
  * @array: array of v
  * @n: Size of the array
  * @i: Node/index of particular of the array
+ * @size: Size of the array for print_array
  *
  * Description: This builds the heap, and follows the rules of max heap
  * whenever it adds or removes a value, ie the parent values must
  * be greater or equal to the child but not less than
  */
-void heapify(int *array, int n, int i)
+void heapify(int *array, int n, int i, size_t size)
 {
 	int largest = i;
 	int left = (2 * i) + 1;
@@ -35,8 +36,8 @@ void heapify(int *array, int n, int i)
 	if (largest != i)
 	{
 		swap(&array[i], &array[largest]);
-		print_array(array, n);
-		heapify(array, n, largest);
+		print_array(array, size);
+		heapify(array, n, largest, size);
 	}
 }
 
@@ -58,12 +59,12 @@ void heap_sort(int *array, size_t size)
 		return;
 	/* Building the max heap */
 	for (i = (size / 2) - 1 ; i >= 0; i--)
-		heapify(array, size, i);
+		heapify(array, size, i, size);
 	/* Deleting elements from max heap */
 	for (i = siz; i > 0; i--)
 	{
 		swap(&array[first], &array[i]);
 		print_array(array, size);
-		heapify(array, i, first);
+		heapify(array, i, first, size);
 	}
 }
